@@ -11,7 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 /**
@@ -40,7 +41,7 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callbck(@RequestParam(name="code") String code,
                           @RequestParam(name="state") String state,
-                          HttpServletRequest request){
+                          HttpServletResponse response){
         AccessTokenDto token = new AccessTokenDto();
         token.setCode(code);
         token.setState(state);
@@ -51,14 +52,15 @@ public class AuthorizeController {
         GithubUser githubUser = githubProvider.getUser(accessToken);
         if (githubUser!=null){
             User user = new User();
-            user.setToken(UUID.randomUUID().toString());
+            String token1 = UUID.randomUUID().toString();
+            user.setToken(token1);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate() );
             userMapper.insert(user);
-            //登录成功，写cookie和session
-            request.getSession().setAttribute("user",githubUser);
+            //写入cookie
+            response.addCookie(new Cookie("token",token1));
             return "redirect:/";
         }else{//登录失败。重新登录
             return "redirect:/";
