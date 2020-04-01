@@ -109,4 +109,15 @@ public class QuestionService {
         questionDto.setUser(user);
         return questionDto;
     }
+
+    public void createOrUpdate(Question question) {
+        if(question.getId()==null){//如果没有ID，说明这是第一次创建数据
+            question.setGmtCreate(System.currentTimeMillis());//创建时间
+            question.setGmtModified(question.getGmtCreate());//更新时间
+            questionMapper.create(question);
+        }else {//有id，说明这是修改、更新数据
+            question.setGmtModified(question.getGmtCreate());//这里只要有更新时间
+            questionMapper.update(question);
+        }
+    }
 }
