@@ -31,15 +31,22 @@ public class QuestionService {
 
     public PaginationDto list(Integer page, Integer size) {
         PaginationDto paginationDto = new PaginationDto();
+        Integer totalPage;//定义总页数
         Integer totalCount = questionMapper.count();//totalCount:数据库总记录条数
-        paginationDto.setPagination(totalCount,page,size);
+        if(totalCount%size==0){
+            totalPage = totalCount/size;
+        }else {
+            totalPage = totalCount/size+1;
+        }
+
         //避免传入不存在页码
         if(page<1){
             page=1;
         }
-        if(page>paginationDto.getTotalPage()){
-            page=paginationDto.getTotalPage();
+        if(page>totalPage){
+            page=totalPage;
         }
+        paginationDto.setPagination(totalPage,page);
         //size*(page-1)
         Integer offset = size*(page-1);
         List<Question> questions = questionMapper.list(offset,size);
@@ -56,5 +63,50 @@ public class QuestionService {
 
 
         return paginationDto;
+    }
+
+    public PaginationDto list(Integer userId, Integer page, Integer size) {
+        PaginationDto paginationDto = new PaginationDto();
+        Integer totalPage;//定义总页数
+        Integer totalCount = questionMapper.countByUserId(userId);//totalCount:数据库总记录条数
+        if(totalCount%size==0){
+            totalPage = totalCount/size;
+        }else {
+            totalPage = totalCount/size+1;
+        }
+
+        //避免传入不存在页码
+        if(page<1){
+            page=1;
+        }
+        if(page>totalPage){
+            page=totalPage;
+        }
+        paginationDto.setPagination(totalPage,page);
+        //size*(page-1)
+        Integer offset = size*(page-1);
+        List<Question> questions = questionMapper.listByUserId(userId,offset,size);
+        List<QuestionDto> questionDtoList = new ArrayList<>();
+
+        for (Question question : questions) {
+            User user = userMapper.findById(question.getCreator());
+            QuestionDto questionDto = new QuestionDto();
+            BeanUtils.copyProperties(question,questionDto);
+            questionDto.setUser(user);
+            questionDtoList.add(questionDto);
+        }
+        paginationDto.setQuestions(questionDtoList);
+
+
+        return paginationDto;
+    }
+
+    public QuestionDto getById(Integer id) {
+        QuestionDto questionDto = new QuestionDto();
+        Question question = questionMapper.getById(id);
+        BeanUtils.copyProperties(question,questionDto);
+        User user = userMapper.findById(question.getCreator());
+        questionDto.setUser(user);
+        return questionDto;
     }
 }

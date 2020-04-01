@@ -24,19 +24,8 @@ public class PaginationDto {
     private List<Integer> pages = new ArrayList<>();//展示页码数组
     private Integer totalPage;//尾页数
 
-    public void setPagination(Integer totalCount, Integer page, Integer size) {
-        if(totalCount%size==0){
-            totalPage = totalCount/size;
-        }else {
-            totalPage = totalCount/size+1;
-        }
-        //避免传入不存在页码
-        if(page<1){
-            page=1;
-        }
-        if(page>totalPage){
-            page=totalPage;
-        }
+    public void setPagination(Integer totalPage, Integer page) {
+        this.totalPage=totalPage;
         this.page=page;
         //确定页码数组
         pages.add(page);
