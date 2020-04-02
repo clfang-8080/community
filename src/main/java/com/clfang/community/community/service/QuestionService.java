@@ -4,6 +4,7 @@ import com.clfang.community.community.dto.PaginationDto;
 import com.clfang.community.community.dto.QuestionDto;
 import com.clfang.community.community.exception.CustomizeErrorCode;
 import com.clfang.community.community.exception.CustomizeException;
+import com.clfang.community.community.mapper.QuestionExtMapper;
 import com.clfang.community.community.mapper.QuestionMapper;
 import com.clfang.community.community.mapper.UserMapper;
 import com.clfang.community.community.model.Question;
@@ -32,6 +33,8 @@ public class QuestionService {
     private QuestionMapper questionMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     public PaginationDto list(Integer page, Integer size) {
         PaginationDto paginationDto = new PaginationDto();
@@ -145,5 +148,13 @@ public class QuestionService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    //增加阅读数的方法
+    public void incView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
     }
 }
