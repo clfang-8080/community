@@ -73,7 +73,7 @@ public class QuestionService {
         return paginationDto;
     }
 
-    public PaginationDto list(Integer userId, Integer page, Integer size) {
+    public PaginationDto list(long userId, Integer page, Integer size) {
         PaginationDto paginationDto = new PaginationDto();
         Integer totalPage;//定义总页数
         //totalCount:数据库总记录条数
@@ -117,7 +117,7 @@ public class QuestionService {
         return paginationDto;
     }
 
-    public QuestionDto getById(Integer id) {
+    public QuestionDto getById(long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null) {
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
@@ -143,7 +143,7 @@ public class QuestionService {
             QuestionExample questionExample = new QuestionExample();
             questionExample.createCriteria()
                     .andIdEqualTo(question.getId());
-            int updated = questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            int updated = questionMapper.updateByExampleSelective(updateQuestion, questionExample);//(更改的数据,更改的对象)
             if (updated != 1){//更新失败
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
@@ -151,7 +151,7 @@ public class QuestionService {
     }
 
     //增加阅读数的方法
-    public void incView(Integer id) {
+    public void incView(long id) {
         Question question = new Question();
         question.setId(id);
         question.setViewCount(1);

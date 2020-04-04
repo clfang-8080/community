@@ -31,7 +31,7 @@ public class PublishController {
     //修改、重新编辑问题
     @GetMapping("/publish/{id}")
     public String edit(
-            @PathVariable(name = "id") Integer id,
+            @PathVariable(name = "id") long id,
             Model model
     ){
         QuestionDto question = questionService.getById(id);
@@ -52,7 +52,7 @@ public class PublishController {
             @RequestParam(value = "title",required = false) String title,
             @RequestParam(value = "description",required = false) String description,
             @RequestParam(value = "tag",required = false) String tag,
-            @RequestParam(value = "id",required = false) Integer id,
+            @RequestParam(value = "id",required = false) long id,
             HttpServletRequest request,
             Model model
     ){

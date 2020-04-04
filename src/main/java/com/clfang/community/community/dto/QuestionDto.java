@@ -13,7 +13,7 @@ import lombok.Data;
  */
 @Data
 public class QuestionDto {
-    private Integer id;
+    private long id;
     private String title;//标题
     private String description;//内容
     private String tag;//标签
