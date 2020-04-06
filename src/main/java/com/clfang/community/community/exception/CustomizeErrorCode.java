@@ -15,7 +15,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode{
     NO_LOGIN(2003,"当前操作需要登录，请登陆后重试"),
     SYS_ERROR(2004,"服务器过载，还是稍后再试吧o(∩_∩)o"),
     TYPE_TARAM_WRONG(2005,"评论类型错误或不存在"),
-    COMMENT_NOT_FOUNT(2006,"你回复的评论不存在或已删除，请换个试试o(∩_∩)o")
+    COMMENT_NOT_FOUNT(2006,"你回复的评论不存在或已删除，请换个试试o(∩_∩)o"),
+    CONTENT_IS_EMPTY(2007,"输入内容不能为空")
     ;
 
     @Override

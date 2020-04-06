@@ -9,8 +9,8 @@ package com.clfang.community.community.enums;
  * @Author:CLFang
  */
 public enum CommentTypeEnum {
-    QUESTION(1),
-    COMMENT(2);
+    QUESTION(1),//发起问题
+    COMMENT(2);//进行回复
     private Integer type;
 
     public static boolean isExist(Integer type) {

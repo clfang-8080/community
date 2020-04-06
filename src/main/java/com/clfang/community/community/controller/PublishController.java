@@ -52,7 +52,7 @@ public class PublishController {
             @RequestParam(value = "title",required = false) String title,
             @RequestParam(value = "description",required = false) String description,
             @RequestParam(value = "tag",required = false) String tag,
-            @RequestParam(value = "id",required = false) long id,
+            @RequestParam(value = "id",required = false) Integer id,
             HttpServletRequest request,
             Model model
     ){
@@ -81,10 +81,13 @@ public class PublishController {
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
+        question.setCommentCount(0);
         question.setCreator(user.getId());
         //question.setGmtCreate(System.currentTimeMillis());
         //question.setGmtModified(question.getGmtCreate());
-        question.setId(id);
+        if (id != null){
+            question.setId(id.longValue());
+        }
         questionService.createOrUpdate(question);
         //questionMapper.create(question);
         return "redirect:/";
