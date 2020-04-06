@@ -109,5 +109,22 @@ function collapseComments(e) {
         }
 
     }
+}
+
+//展开标签选择页
+function showSelectTag() {
+    $("#select-tag").show();
+}
+
+function selectTag(e) {
+    var value = e.getAttribute("data-tag")
+    var previous = $("#tag").val();
+    if (previous.indexOf(value) == -1){//输入框中没有这个值
+        if (previous){//有tag
+            $("#tag").val(previous + ',' + value);
+        }else {
+            $("#tag").val(value);
+        }
+    }
 
 }
