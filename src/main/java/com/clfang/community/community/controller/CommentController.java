@@ -49,7 +49,7 @@ public class CommentController {
         comment.setCommentator(user.getId());
         comment.setLikeCount(0L);//long类型，0后面加L
         comment.setCommentCount(0L);
-        commentService.insert(comment);
+        commentService.insert(comment,user);
         return ResultDto.okOF();
     }
 

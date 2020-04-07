@@ -14,8 +14,8 @@ import java.util.List;
  * @Author:CLFang
  */
 @Data
-public class PaginationDto {
-    private List<QuestionDto> questions;
+public class PaginationDto<T> {
+    private List<T> data;
     private boolean showPrevious;//有无向前按钮
     private boolean showFirstPage;//有无第一页按钮
     private boolean showNext;//有无下一页按钮
