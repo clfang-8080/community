@@ -83,6 +83,10 @@ public class CommentService {
 
     //创建通知方法
     private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
+        //接受通知的人和触发通知的人是同一个人，不用通知
+        if (receiver == comment.getCommentator()){
+            return;
+        }
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());//当前时间
         notification.setType(notificationType.getType());
