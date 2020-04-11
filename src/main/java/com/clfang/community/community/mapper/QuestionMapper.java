@@ -1,5 +1,6 @@
 package com.clfang.community.community.mapper;
 
+import com.clfang.community.community.dto.QuestionQueryDto;
 import com.clfang.community.community.model.Question;
 import com.clfang.community.community.model.QuestionExample;
 import java.util.List;
@@ -134,4 +135,6 @@ public interface QuestionMapper {
      * @mbg.generated Tue Apr 07 11:30:00 CST 2020
      */
     int updateByPrimaryKey(Question record);
+
+
 }
