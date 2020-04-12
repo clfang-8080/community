@@ -6,6 +6,7 @@ import com.clfang.community.community.mapper.UserMapper;
 import com.clfang.community.community.model.User;
 import com.clfang.community.community.provider.GithubProvider;
 import com.clfang.community.community.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ import java.util.UUID;
  * @Author:CLFang
  */
 @Controller
+@Slf4j//日志
 public class AuthorizeController {
     @Autowired//不用new对象，跳过创建
     private GithubProvider githubProvider;
@@ -67,6 +69,7 @@ public class AuthorizeController {
             response.addCookie(new Cookie("token",token1));
             return "redirect:/";
         }else{//登录失败。重新登录
+            log.error("callback get github error,{}",githubUser);//{}意思为把后面的内容打印到前面
             return "redirect:/";
         }
     }

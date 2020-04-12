@@ -33,7 +33,8 @@ public class UCloudProvider {
     private String secretKey;
     @Value("${ucloud.ufile.bucket}")
     private String bucket;
-    private String prix = "http://q8kkrovt7.bkt.clouddn.com/";
+    @Value("${ucloud.ufile.prixurl}")
+    private String prixUrl;//回显图片地址
 
     public String upload(byte[] bytes,String fileName){
         Configuration cfg = new Configuration(Region.region0());
@@ -50,7 +51,7 @@ public class UCloudProvider {
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
             //System.out.println(putRet.key);
             //System.out.println(putRet.hash);
-            return prix+putRet.key+"?t="+new Date().getTime();
+            return prixUrl+putRet.key+"?t="+new Date().getTime();
         } catch (QiniuException ex) {
             Response r = ex.response;
             System.err.println(r.toString());

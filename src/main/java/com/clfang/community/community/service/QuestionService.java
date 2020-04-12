@@ -67,7 +67,7 @@ public class QuestionService {
         }
         paginationDto.setPagination(totalPage,page);
         //size*(page-1)
-        Integer offset = size*(page-1);
+        Integer offset = page<1 ? 0 : size*(page-1);
         QuestionExample questionExample = new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");//倒叙
         questionQueryDto.setSize(size);
@@ -80,6 +80,9 @@ public class QuestionService {
             QuestionDto questionDto = new QuestionDto();
             BeanUtils.copyProperties(question,questionDto);
             questionDto.setUser(user);
+            if (questionDto.getDescription().length()>12){//若内容过长，只截取部分
+                questionDto.setDescription(questionDto.getDescription().substring(0,12)+"...");
+            }
             questionDtoList.add(questionDto);
         }
         paginationDto.setData(questionDtoList);

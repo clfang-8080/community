@@ -8,9 +8,9 @@
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">无聊社区</span>
+                    <span class="sr-only">我的社区</span>
                 </button>
-                <a class="navbar-brand" href="/">无聊社区</a>
+                <a class="navbar-brand" href="/">我的社区</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form class="navbar-form navbar-left" action="/" method="get">
@@ -32,12 +32,11 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="/profile/questions">我的发布</a></li>
-                            <li><a href="#">个人资料</a></li>
                             <li><a href="/logout">退出登录</a></li>
                         </ul>
                     </li>
                     <li th:if="${session.user == null}">
-                        <a href="https://github.com/login/oauth/authorize?client_id=Iv1.19c33fd30ca3617d&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>
+                        <a th:href="@{https://github.com/login/oauth/authorize(client_id='Iv1.19c33fd30ca3617d',redirect_uri=${#httpServletRequest.getRequestURL()+'callback'},scope='user',state=1)}">登录</a>
                     </li>
                 </ul>
             </div>
