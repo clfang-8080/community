@@ -11,6 +11,7 @@
     <groupId>com.clfang.community</groupId>
     <artifactId>community</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>community</name>
     <description>Demo project for Spring Boot</description>
 
@@ -35,8 +36,8 @@
             <!--生产环境-->
             <id>production</id>
             <properties>
-                <db.url>jdbc:mysql://127.0.0.1:3306/sfydb_6267582</db.url>
-                <db.user>sfydb_6267582</db.user>
+                <db.url>jdbc:mysql://127.0.0.1:3306/clfangdb</db.url>
+                <db.user>clfangdb</db.user>
                 <db.password>sn5Diphone6</db.password>
             </properties>
 
@@ -187,6 +188,7 @@
                 </dependencies>
             </plugin>
         </plugins>
+        <finalName>test</finalName>
     </build>
 
 </project>
